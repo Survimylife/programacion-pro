@@ -26,15 +26,16 @@ def delete():
     i=0
 
 #-------------------------------- función borrar un solo elemento ------------------------------------------------
-""""
+
 def deleteOne():
-    pantalla = pantalla.get()
-    if len(pantalla):
-        pantalla_nuevo = pantalla[:-1]
-        clear_pantalla()
-        pantalla.insert(pantalla_nuevo)
-    i=0
-"""
+    pantalla_status = pantalla.get()
+    if len(pantalla_status):
+        pantalla_new_status = pantalla_status[:-1]
+        delete()
+        pantalla.insert(0, pantalla_new_status)
+    else:
+        delete()
+
 #-------------------------------- función operaciones ------------------------------------------------
 
 def operation():
@@ -55,10 +56,10 @@ botonCos.grid(row=2,column=3)
 botonTan = Button(miFrame, text='tan', width=6, height=2, command=lambda:numeroPulsado('tan'))
 botonTan.grid(row=2,column=4)
 
-botonPi = Button(miFrame, text='π', width=6, height=2, command=lambda:numeroPulsado('π'))
+botonPi = Button(miFrame, text='π', width=6, height=2, command=lambda:numeroPulsado(3.1416))
 botonPi.grid(row=2,column=5)
 
-botonEuler = Button(miFrame, text='e', width=6, height=2, command=lambda:numeroPulsado('e'))
+botonEuler = Button(miFrame, text='e', width=6, height=2, command=lambda:numeroPulsado(2.7182))
 botonEuler.grid(row=2,column=6)
 
 
