@@ -1,4 +1,5 @@
 from tkinter import*
+import math
 
 root=Tk()
 root.title('Programación pro')
@@ -6,6 +7,8 @@ miFrame = Frame(root)
 miFrame.pack()
 
 i=0
+
+
 #--------------------------------Pantalla----------------------------------------------------
 
 
@@ -13,11 +16,12 @@ pantalla = Entry(miFrame, font="Calibri 15")
 pantalla.grid(row=1, column=1, padx=50, pady=50, columnspan=6)
 pantalla.config(background='gray', fg='#0a0a0a', justify='left', width=25)
 
+
+
 #-------------------------------- pulsaciones teclado --------------------------------------------
 def numeroPulsado(num):
-    global i
-    pantalla.insert(i, num)
-    i += 1
+    pantalla.insert(END, num)
+
     
 #-------------------------------- función borrar ----------------------------------------------------
 
@@ -39,27 +43,92 @@ def deleteOne():
 #-------------------------------- función operaciones ------------------------------------------------
 
 def operation():
-    ecuacion = pantalla.get()
-    result = eval(ecuacion)
+    try:
+        result = eval(pantalla.get().replace('^','**'))
+    except: 
+        delete()
+        result = "ERROR"
     pantalla.delete(0,END)
     pantalla.insert(0, result)
-    i=0
+
+
+
+# -------------------------------------- functions -----------
+
+def factorial(n):
+    if n==0 or n==1:
+        return 1
+    else:
+        return n*factorial(n-1)
+
+def fact_func():
+    number = pantalla.get()
+    result = str(factorial(int(number)))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
+# sine
+
+def trig_sin():
+    number = pantalla.get()
+    result = str(math.sin(math.radians(float(number))))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
+# cosine
+
+def trig_cos():
+    number = pantalla.get()
+    result = str(math.cos(math.radians(float(number))))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
+# tan
+
+def trig_tan():
+    number = pantalla.get()
+    result = str(math.tan(math.radians(float(number))))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
+def ln():
+    number = pantalla.get()
+    result = str(math.log(float(number)))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
+def e():
+    result = str(math.exp(1))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
+def pi():
+    pantalla.delete(0,END)
+    pantalla.insert(0,math.pi)
+
+
 
 #--------------------------------Fila2--------------------------------------------------
+power = Button(miFrame, text='x^y',width=6, height=1,command=lambda:numeroPulsado('**'), font="Calibri 15").grid(row=2, column=1)
 
-botonSin = Button(miFrame, text='sin', width=6, height=1, command=lambda:numeroPulsado('sin'), font="Calibri 15")
+log_e = Button(miFrame, text='ln',width=6, height=1,command=ln, font="Calibri 15").grid(row=3, column=1)
+
+factorial_button = Button(miFrame, text='x!',width=6, height=1,command=fact_func, font="Calibri 15").grid(row=4, column=1)
+
+
+botonSin = Button(miFrame, text='sin', width=6, height=1, command=trig_sin, font="Calibri 15")
 botonSin.grid(row=2,column=2)
 
-botonCos = Button(miFrame, text='cos', width=6, height=1, command=lambda:numeroPulsado('cos'), font="Calibri 15")
+botonCos = Button(miFrame, text='cos', width=6, height=1, command=trig_cos, font="Calibri 15")
 botonCos.grid(row=2,column=3)
 
-botonTan = Button(miFrame, text='tan', width=6, height=1, command=lambda:numeroPulsado('tan'), font="Calibri 15")
+botonTan = Button(miFrame, text='tan', width=6, height=1, command=trig_tan, font="Calibri 15")
 botonTan.grid(row=2,column=4)
 
-botonPi = Button(miFrame, text='π', width=6, height=1, command=lambda:numeroPulsado(3.1416), font="Calibri 15")
+botonPi = Button(miFrame, text='π', width=6, height=1, command=pi, font="Calibri 15")
 botonPi.grid(row=2,column=5)
 
-botonEuler = Button(miFrame, text='e', width=6, height=1, command=lambda:numeroPulsado(2.7182), font="Calibri 15")
+botonEuler = Button(miFrame, text='e', width=6, height=1, command=e, font="Calibri 15")
 botonEuler.grid(row=2,column=6)
 
 
@@ -130,15 +199,5 @@ botonPunto.grid(row=6,column=4)
 boton_sum = Button(miFrame, text='+', width=6, height=1, command=lambda:numeroPulsado('+'), font="Calibri 15")
 boton_sum.grid(row=6,column=5)
 
-
-"""numeroPantalla = StringVar()
-
-pantalla = Entry(miFrame, textvariable=numeroPantalla)
-pantalla.grid(row=1, column=1, padx=50, pady=50, columnspan=6)
-pantalla.config(background='gray', fg='#0a0a0a', justify='right', width=40)
-
-#--------------------------------pulsaciones teclado----------------------------------------------------
-def numeroPulsado(num):
-    numeroPantalla.set(numeroPantalla.get() + num)"""
 
 root.mainloop()
