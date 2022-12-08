@@ -2,9 +2,12 @@ from tkinter import*
 
 import math
 
+
+
+
 root=Tk() # create root window
 root.title('Programación pro') # title of the GUI window
-root.maxsize(344,417) #(witdh, height) specify the max size the window can expand to
+root.maxsize(344,460) #(witdh, height) specify the max size the window can expand to
 root.config(bg="skyblue")  # specify background color
 root.iconbitmap('C:\programacion-pro\calcu4.ico')
 miFrame = Frame(root)
@@ -29,7 +32,7 @@ miFrame.pack()"""
 
 
 pantalla = Entry(miFrame, font="Calibri 20")
-pantalla.grid(row=1, column=1, padx=30, pady=70, columnspan=6)
+pantalla.grid(row=0, column=1, padx=30, pady=70, columnspan=6)
 pantalla.config(background='#b1b3dc', fg='#0a0a0a', justify='left', width=20)
 
 
@@ -91,11 +94,27 @@ def trig_sin():
     pantalla.delete(0,END)
     pantalla.insert(0,result)
 
+# inverse sine
+
+def sinInv():
+    number = pantalla.get()
+    result = str(math.asin(math.radians(float(number))))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
 # cosine
 
 def trig_cos():
     number = pantalla.get()
     result = str(math.cos(math.radians(float(number))))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
+# inverse cosine
+
+def cosInv():
+    number = pantalla.get()
+    result = str(math.acos(math.radians(float(number))))
     pantalla.delete(0,END)
     pantalla.insert(0,result)
 
@@ -106,6 +125,15 @@ def trig_tan():
     result = str(math.tan(math.radians(float(number))))
     pantalla.delete(0,END)
     pantalla.insert(0,result)
+
+# inverse tan
+
+def tanInv():
+    number = pantalla.get()
+    result = str(math.atan(math.radians(float(number))))
+    pantalla.delete(0,END)
+    pantalla.insert(0,result)
+
 
 def ln():
     number = pantalla.get()
@@ -124,7 +152,25 @@ def pi():
 
 
 
-#--------------------------------Fila2--------------------------------------------------
+#-------------------------------- Fila 1 --------------------------------------------------
+
+boton_modulo = Button(miFrame, text='mod', width=4, height=1, command=lambda:numeroPulsado('%'),
+ font="Calibri 15", relief='groove')
+boton_modulo.grid(row=1,column=1)
+
+botonSinInv = Button(miFrame, text='sin-1', width=4, height=1, command=sinInv, font="Calibri 15",
+ relief='groove')
+botonSinInv.grid(row=1, column=2, padx=3, pady=3)
+
+botonCosInv = Button(miFrame, text='cos-1', width=4, height=1, command=cosInv, font="Calibri 15",
+ relief='groove')
+botonCosInv.grid(row=1, column=3, padx=3, pady=3)
+
+botonTanInv = Button(miFrame, text='tan-1', width=4, height=1, command=tanInv, font="Calibri 15",
+ relief='groove')
+botonTanInv.grid(row=1, column=4, padx=3, pady=3)
+
+#-------------------------------- Fila 2 --------------------------------------------------
 power = Button(miFrame, text='x^y', width=4, height=1, command=lambda:numeroPulsado('**'),
  font="Calibri 15", relief='groove').grid(row=2, column=1, padx=3, pady=3)
 
@@ -200,9 +246,9 @@ boton_div.grid(row=4, column=6, padx=3, pady=3)
 
 #--------------------------------Fila5--------------------------------------------------
 
-botonOpen = Button(miFrame, text='(', width=4, height=1, command=lambda:numeroPulsado('('),
+boton_raiz = Button(miFrame, text='√', width=4, height=1, command=lambda:numeroPulsado('math.sqrt('),
  font="Calibri 15", relief='groove')
-botonOpen.grid(row=5, column=1, padx=3, pady=3)
+boton_raiz.grid(row=5,column=1)
 
 boton1 = Button(miFrame, text='1', width=4, height=1, command=lambda:numeroPulsado(1), fg='#354bd8',
  font="Calibri 15", background='#ebebee', relief='flat')
@@ -224,11 +270,17 @@ boton_equal = Button(miFrame, text='=', width=4, height=3, command=lambda:operat
  font="Calibri 15", background='#b1b3dc', relief='flat')
 boton_equal.grid(row=5, column=6, rowspan=2, padx=3, pady=3)
 
+
+
 #--------------------------------Fila6--------------------------------------------------
+
+botonOpen = Button(miFrame, text='(', width=4, height=1, command=lambda:numeroPulsado('('),
+ font="Calibri 15", relief='groove')
+botonOpen.grid(row=6, column=1, padx=3, pady=3)
 
 botonClose = Button(miFrame, text=')', width=4, height=1, command=lambda:numeroPulsado(')'),
  font="Calibri 15", relief='groove')
-botonClose.grid(row=6, column=1, padx=3, pady=3)
+botonClose.grid(row=6, column=2, padx=3, pady=3)
 
 boton0 = Button(miFrame, text='0', width=4, height=1, command=lambda:numeroPulsado(0), fg='#354bd8',
  font="Calibri 15", background='#ebebee', relief='flat')
