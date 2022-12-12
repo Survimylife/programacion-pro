@@ -6,7 +6,7 @@ root = Tk() # create root window
 root.title('Programación pro') # title of the GUI window
 root.maxsize(336,381) # (witdh, height) specify the max size the window can expand to
 root.config(bg="skyblue")  # specify background color
-# root.iconbitmap('C:\programacion-pro\calcu4.ico')
+root.iconbitmap('C:\programacion-pro\calcu4.ico')
 miFrame = Frame(root)
 miFrame.config(cursor="mouse", bg="#ffffff", relief="sunken") # background
 miFrame.pack() # position
