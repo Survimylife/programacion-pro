@@ -1,54 +1,36 @@
-from tkinter import*
+from tkinter import* 
 
 import math
 
-
-
-
-root=Tk() # create root window
+root = Tk() # create root window
 root.title('Programación pro') # title of the GUI window
-root.maxsize(344,460) #(witdh, height) specify the max size the window can expand to
+root.maxsize(336,381) # (witdh, height) specify the max size the window can expand to
 root.config(bg="skyblue")  # specify background color
-root.iconbitmap('C:\programacion-pro\calcu4.ico')
+# root.iconbitmap('C:\programacion-pro\calcu4.ico')
 miFrame = Frame(root)
-miFrame.config(cursor="mouse",bg="#ffffff",relief="sunken")
-miFrame.pack()
+miFrame.config(cursor="mouse", bg="#ffffff", relief="sunken") # background
+miFrame.pack() # position
 
+#----------------------------------------------- Pantalla -----------------------------------------------
 
+pantalla = Entry(miFrame, font="Calibri 30")
+pantalla.grid(row=0, column=1, padx=10, pady=20, columnspan=6)
+pantalla.config(background='#b1b3dc', fg='#0a0a0a', justify='left', width=15)
 
-i=0
+#------------------------------------------ Pulsaciones teclado ------------------------------------------
 
-"""root=Tk() # create root window
-root.title('Programación pro') # title of the GUI window
-root.maxsize(500,400) # specify the max size the window can expand to
-image = tk.PhotoImage(file="cat.gif")
-original_image = image.subsample(1,1)  # resize image using subsample
-root.config(bg="skyblue")  # specify background color
-miFrame = Label(root,i=original_image)
-miFrame.config(cursor="mouse",bg="skyblue",relief="sunken",bd=10)
-miFrame.pack()"""
-
-#--------------------------------Pantalla----------------------------------------------------
-
-
-pantalla = Entry(miFrame, font="Calibri 20")
-pantalla.grid(row=0, column=1, padx=30, pady=70, columnspan=6)
-pantalla.config(background='#b1b3dc', fg='#0a0a0a', justify='left', width=20)
-
-
-
-#-------------------------------- pulsaciones teclado --------------------------------------------
 def numeroPulsado(num):
     pantalla.insert(END, num)
 
-    
-#-------------------------------- función borrar ----------------------------------------------------
+#-------------------------------------------- Función borrar --------------------------------------------
+
+i=0
 
 def delete():
     pantalla.delete(0,END)
     i=0
 
-#-------------------------------- función borrar un solo elemento ---------------------------------
+#------------------------------------ Función borrar un solo elemento ------------------------------------
 
 def deleteOne():
     pantalla_status = pantalla.get()
@@ -59,20 +41,48 @@ def deleteOne():
     else:
         delete()
 
-#-------------------------------- función operaciones ------------------------------------------------
+#---------------------------- Logaritmo natural, radicación y Trignométricas ----------------------------
 
 def operation():
     try:
-        result = eval(pantalla.get().replace('^','**'))
+        gt=pantalla.get()
+        if 'sin' in gt:
+            gt=pantalla.get().replace('sin','')
+            result = str(math.sin(math.radians(float(gt))))
+        elif 'cos' in gt:
+            gt=pantalla.get().replace('cos','')
+            result = str(math.cos(math.radians(float(gt))))
+        elif 'tan' in gt:
+            gt=pantalla.get().replace('tan','')
+            result = str(math.tan(math.radians(float(gt))))
+        elif 'arcsn' in gt:
+            gt=pantalla.get().replace('arcsn','')
+            result = str(math.asin(math.radians(float(gt))))
+        elif 'arccs' in gt:
+            gt=pantalla.get().replace('arccs','')
+            result = str(math.acos(math.radians(float(gt))))
+        elif 'arctn' in gt:
+            gt=pantalla.get().replace('arctn','')
+            result = str(math.atan(math.radians(float(gt))))
+        elif 'ln' in gt:
+            gt=pantalla.get().replace('ln','')
+            result = str(math.log(float(gt)))
+        elif '√' in gt:
+            gt=pantalla.get().replace('√','')
+            result = str(math.sqrt(float(gt)))
+        else:
+            result = eval(pantalla.get().replace('^','**'))
     except: 
         delete()
         result = "ERROR"
     pantalla.delete(0,END)
     pantalla.insert(0, result)
 
+#----------------------------------------- Euler, factorial y pi -----------------------------------------
 
-
-# -------------------------------------- functions -------------------------------------------
+def e():
+    result = str(math.exp(1))
+    pantalla.insert(END,result)
 
 def factorial(n):
     if n==0 or n==1:
@@ -86,110 +96,50 @@ def fact_func():
     pantalla.delete(0,END)
     pantalla.insert(0,result)
 
-# sine
-
-def trig_sin():
-    number = pantalla.get()
-    result = str(math.sin(math.radians(float(number))))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
-# inverse sine
-
-def sinInv():
-    number = pantalla.get()
-    result = str(math.asin(math.radians(float(number))))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
-# cosine
-
-def trig_cos():
-    number = pantalla.get()
-    result = str(math.cos(math.radians(float(number))))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
-# inverse cosine
-
-def cosInv():
-    number = pantalla.get()
-    result = str(math.acos(math.radians(float(number))))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
-# tan
-
-def trig_tan():
-    number = pantalla.get()
-    result = str(math.tan(math.radians(float(number))))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
-# inverse tan
-
-def tanInv():
-    number = pantalla.get()
-    result = str(math.atan(math.radians(float(number))))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
-
-def ln():
-    number = pantalla.get()
-    result = str(math.log(float(number)))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
-def e():
-    result = str(math.exp(1))
-    pantalla.delete(0,END)
-    pantalla.insert(0,result)
-
 def pi():
-    pantalla.delete(0,END)
-    pantalla.insert(0,math.pi)
+    pantalla.insert(END,math.pi)
 
-
-
-#-------------------------------- Fila 1 --------------------------------------------------
+#------------------------------------------------ Fila 1 ------------------------------------------------
 
 boton_modulo = Button(miFrame, text='mod', width=4, height=1, command=lambda:numeroPulsado('%'),
  font="Calibri 15", relief='groove')
 boton_modulo.grid(row=1,column=1)
 
-botonSinInv = Button(miFrame, text='sin-1', width=4, height=1, command=sinInv, font="Calibri 15",
- relief='groove')
+botonSinInv = Button(miFrame, text='sin-1', width=4, height=1, command=lambda:numeroPulsado('arcsn'),
+ background='#d6f3d4', font="Calibri 15", relief='groove')
 botonSinInv.grid(row=1, column=2, padx=3, pady=3)
 
-botonCosInv = Button(miFrame, text='cos-1', width=4, height=1, command=cosInv, font="Calibri 15",
- relief='groove')
+botonCosInv = Button(miFrame, text='cos-1', width=4, height=1, command=lambda:numeroPulsado('arccs'),
+ background='#d6f3d4', font="Calibri 15", relief='groove')
 botonCosInv.grid(row=1, column=3, padx=3, pady=3)
 
-botonTanInv = Button(miFrame, text='tan-1', width=4, height=1, command=tanInv, font="Calibri 15",
- relief='groove')
+botonTanInv = Button(miFrame, text='tan-1', width=4, height=1, command=lambda:numeroPulsado('arctn'),
+ background='#d6f3d4', font="Calibri 15", relief='groove')
 botonTanInv.grid(row=1, column=4, padx=3, pady=3)
 
-#-------------------------------- Fila 2 --------------------------------------------------
-power = Button(miFrame, text='x^y', width=4, height=1, command=lambda:numeroPulsado('**'),
+botonfi = Button(miFrame, text='NA', width=4, height=1, command=lambda:numeroPulsado('6.02214076*10^23'),
+ font="Calibri 15", relief='groove')
+botonfi.grid(row=1, column=5, padx=3, pady=3)
+
+botong = Button(miFrame, text='g', width=4, height=1, command=lambda:numeroPulsado('9.80665'),
+ font="Calibri 15", relief='groove')
+botong.grid(row=1, column=6, padx=3, pady=3)
+
+#------------------------------------------------ Fila 2 ------------------------------------------------
+
+power = Button(miFrame, text='x^y', width=4, height=1, command=lambda:numeroPulsado('^'),
  font="Calibri 15", relief='groove').grid(row=2, column=1, padx=3, pady=3)
 
-log_e = Button(miFrame, text='ln', width=4, height=1,command=ln,
- font="Calibri 15", relief='groove').grid(row=3, column=1)
-
-factorial_button = Button(miFrame, text='x!', width=4, height=1,command=fact_func,
- font="Calibri 15", relief='groove').grid(row=4, column=1, padx=3, pady=3)
-
-botonSin = Button(miFrame, text='sin', width=4, height=1, command=trig_sin, font="Calibri 15",
- relief='groove')
+botonSin = Button(miFrame, text='sin', width=4, height=1, command=lambda:numeroPulsado('sin'),
+ background='#d6f3d4', font="Calibri 15", relief='groove')
 botonSin.grid(row=2, column=2, padx=3, pady=3)
 
-botonCos = Button(miFrame, text='cos', width=4, height=1, command=trig_cos, font="Calibri 15",
- relief='groove')
+botonCos = Button(miFrame, text='cos', width=4, height=1, command=lambda:numeroPulsado('cos'),
+ background='#d6f3d4', font="Calibri 15", relief='groove')
 botonCos.grid(row=2, column=3, padx=3, pady=3)
 
-botonTan = Button(miFrame, text='tan', width=4, height=1, command=trig_tan, font="Calibri 15",
- relief='groove')
+botonTan = Button(miFrame, text='tan', width=4, height=1, command=lambda:numeroPulsado('tan'),
+ background='#d6f3d4', font="Calibri 15", relief='groove')
 botonTan.grid(row=2, column=4, padx=3, pady=3)
 
 botonPi = Button(miFrame, text='π', width=4, height=1, command=pi, font="Calibri 15",
@@ -200,8 +150,11 @@ botonEuler = Button(miFrame, text='e', width=4, height=1, command=e, font="Calib
  relief='groove')
 botonEuler.grid(row=2, column=6, padx=3, pady=3)
 
+#------------------------------------------------ Fila 3 ------------------------------------------------
 
-#--------------------------------Fila3--------------------------------------------------
+log_e = Button(miFrame, text='ln', width=4, height=1,command=lambda:numeroPulsado('ln'),
+ font="Calibri 15", relief='groove').grid(row=3, column=1, padx=3, pady=3)
+
 boton7 = Button(miFrame, text='7', width=4, height=1, command=lambda:numeroPulsado(7), fg='#354bd8',
  font="Calibri 15", background='#ebebee', relief='flat')
 boton7.grid(row=3, column=2, padx=3, pady=3)
@@ -222,7 +175,10 @@ botonErase = Button(miFrame, text='⌫', width=4, height=1, command=lambda:delet
  font="Calibri 15", relief='flat', underline=5)
 botonErase.grid(row=3, column=6, padx=3, pady=3)
 
-#--------------------------------Fila4--------------------------------------------------
+#----------------------------------------------- Fila 4 -----------------------------------------------
+
+factorial_button = Button(miFrame, text='x!', width=4, height=1,command=fact_func,
+ font="Calibri 15", relief='groove').grid(row=4, column=1, padx=3, pady=3)
 
 boton4 = Button(miFrame, text='4', width=4, height=1, command=lambda:numeroPulsado(4), fg='#354bd8',
  font="Calibri 15", background='#ebebee', relief='flat')
@@ -244,9 +200,9 @@ boton_div = Button(miFrame, text='÷', width=4, height=1, command=lambda:numeroP
  font="Calibri 15", background='#b1b3dc', relief='flat')
 boton_div.grid(row=4, column=6, padx=3, pady=3)
 
-#--------------------------------Fila5--------------------------------------------------
+#------------------------------------------------ Fila5 -------------------------------------------------
 
-boton_raiz = Button(miFrame, text='√', width=4, height=1, command=lambda:numeroPulsado('math.sqrt('),
+boton_raiz = Button(miFrame, text='√', width=4, height=1, command=lambda:numeroPulsado('√'),
  font="Calibri 15", relief='groove')
 boton_raiz.grid(row=5,column=1)
 
@@ -270,9 +226,7 @@ boton_equal = Button(miFrame, text='=', width=4, height=3, command=lambda:operat
  font="Calibri 15", background='#b1b3dc', relief='flat')
 boton_equal.grid(row=5, column=6, rowspan=2, padx=3, pady=3)
 
-
-
-#--------------------------------Fila6--------------------------------------------------
+#------------------------------------------------- Fila6 ------------------------------------------------
 
 botonOpen = Button(miFrame, text='(', width=4, height=1, command=lambda:numeroPulsado('('),
  font="Calibri 15", relief='groove')
@@ -295,4 +249,4 @@ boton_sum = Button(miFrame, text='+', width=4, height=1, command=lambda:numeroPu
 boton_sum.grid(row=6, column=5, padx=3, pady=3)
 
 
-root.mainloop()
+root.mainloop()  # last logical line of code in your program
